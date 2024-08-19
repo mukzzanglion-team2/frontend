@@ -1,29 +1,20 @@
 import { instance } from 'api/instance';
-import React, { useEffect, useRef, useState } from 'react';
-import { realQuote, listUser, smallUser, user } from 'types/userList';
+import React, { useEffect, useState } from 'react';
+import { realQuote, listUser } from 'types/userList';
 
 interface UserProfileProps {
   showingUser: listUser;
-  smallUser: smallUser[];
-  currentuser?: user;
   followed: boolean;
-  setFollowed: React.Dispatch<React.SetStateAction<boolean>>;
+  onClickFollow(e: React.MouseEvent<HTMLButtonElement>): void;
 }
 
 const UserProfile = ({
   showingUser,
-  smallUser,
-  currentuser,
   followed,
-  setFollowed,
+  onClickFollow,
 }: UserProfileProps) => {
   const [activeTab, setActiveTab] = useState('Liked');
   const [likedQuotes, setLikedQuotes] = useState<realQuote[]>([]);
-
-  const followRef = useRef<HTMLButtonElement>(null);
-  const [user] = smallUser.filter(
-    (value) => value.email === currentuser!.email,
-  );
 
   const getLikedQuotes = async () => {
     const likedQuotesData = await Promise.all(
@@ -43,34 +34,12 @@ const UserProfile = ({
     setLikedQuotes(likedQuotesData.filter(Boolean));
   };
 
-  const onClickFollow = async () => {
-    if (followRef.current) {
-      const headers = {
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      };
-
-      try {
-        const response = await instance.post(
-          `accounts/follow/${user.id}/`,
-          {},
-          { headers },
-        );
-        if (response.status === 200) {
-          console.log('follow access');
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    setFollowed(!followed);
-  };
-
   const handleProfileClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // 이벤트 전파를 막습니다
+    e.stopPropagation();
   };
 
   const handleProfileKeyDown = (e: React.KeyboardEvent) => {
-    e.stopPropagation(); // 이벤트 전파를 막습니다
+    e.stopPropagation();
   };
 
   useEffect(() => {
@@ -99,7 +68,7 @@ const UserProfile = ({
               <span>팔로워 : {showingUser.follower_count}</span>
             </div>
             <button
-              className={` ${!followed ? 'border border-black p-2 rounded-lg' : 'bg-blue-400 border-none p-2 rounded-lg text-white'}  mt-4 text-sm hover:text-white hover:bg-black z-60`}
+              className={`${!followed ? 'bg-slate-300 p-2 rounded-lg text-black' : 'bg-blue-400 p-2 rounded-lg text-white'} mt-4 text-sm z-60 shadow-md`}
               type="button"
               onClick={onClickFollow}
             >

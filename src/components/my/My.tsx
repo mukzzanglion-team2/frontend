@@ -132,9 +132,15 @@ const My = () => {
             ))}
           </div>
           {activeTab === 'Liked' ? (
-            <ul>
+            <ul className="flex flex-col">
               {likedQuotes?.map((element) => (
-                <li key={element.id}>{element.content}</li>
+                <li
+                  key={element.id}
+                  className="flex flex-col border-b-[1px] border-slate-300 p-3"
+                >
+                  <span>{element.content}</span>
+                  <span className="text-end block">{`${element.author}`}</span>
+                </li>
               ))}
             </ul>
           ) : null}
@@ -150,9 +156,14 @@ const My = () => {
               </button>
             )}
             {activeTab === 'Added' ? (
-              <ul>
+              <ul className="flex flex-col">
                 {user?.registered_quotes?.map((element) => (
-                  <li key={element.id}>{element.content}</li>
+                  <li
+                    key={element.id}
+                    className="flex flex-col border-b-[1px] border-slate-300 p-3"
+                  >
+                    {element.content}
+                  </li>
                 ))}
               </ul>
             ) : null}

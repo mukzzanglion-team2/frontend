@@ -28,6 +28,10 @@ const ResultQuote = ({
     handleLike();
   };
 
+  const fetchedDescription = () => {
+    return description.split('.')[0];
+  };
+
   return (
     <div>
       <div
@@ -47,17 +51,19 @@ const ResultQuote = ({
         ></div>
 
         <div
-          className={`transition-md relative transformStyle-preserve-3d ${flipped ? 'transform-rotY180' : ''}`}
+          className={`transition-md h-full relative transformStyle-preserve-3d ${flipped ? 'transform-rotY180' : ''}`}
         >
-          <div className="backface-hidden flex justify-center align-middle">
-            <div className="flex flex-col gap-[20px] z-10">
+          <div className="backface-hidden h-full flex justify-center align-middle">
+            <div className="flex flex-col gap-[20px] z-10 h-full items-center">
               <span className="text-center font-bold">{quote}</span>
               <span className="text-center font-bold">{author}</span>
             </div>
           </div>
 
-          <div className="transform-rotY180 flex w-full justify-center absolute top-5 [text-shadow:_10px_10px_7px_rgb(0,0,0,50%)] backface-hidden">
-            <span className="text-center font-bold">{description}</span>
+          <div className="transform-rotY180 h-full flex w-full justify-center absolute top-5 [text-shadow:_10px_10px_7px_rgb(0,0,0,50%)] backface-hidden">
+            <span className="text-center font-bold block">
+              {fetchedDescription()}
+            </span>
           </div>
         </div>
         <button

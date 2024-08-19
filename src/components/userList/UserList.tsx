@@ -4,7 +4,7 @@ import { user, smallUser, listUser } from 'types/userList';
 import UserItem from './UserItem';
 
 const UserList = () => {
-  const [smallUser, setSmallUser] = useState<smallUser[]>([]); // 초기값을 빈 배열로 설정
+  const [smallUser, setSmallUser] = useState<smallUser[]>([]);
   const [user, setUser] = useState<listUser[]>([]);
   const [showingUser, setShowingUser] = useState<listUser>();
   const [currentuser, setCurrentUser] = useState<user>();
@@ -77,8 +77,8 @@ const UserList = () => {
           key={element.email}
           element={element}
           smallUser={smallUser}
-          currentuser={currentuser}
           showingUser={showingUser}
+          currentuser={currentuser}
           showUserProfile={showUserProfile}
         />
       ))}

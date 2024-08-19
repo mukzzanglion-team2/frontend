@@ -28,7 +28,7 @@ const WriteQuotePage = () => {
     }
 
     const headers = {
-      Authorization: `token ${localStorage.getItem('accessToken')}`,
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       'Content-Type': 'multipart/form-data',
     };
 
@@ -37,7 +37,8 @@ const WriteQuotePage = () => {
         headers,
       });
       if (response.status === 201) {
-        console.log('등록');
+        alert('등록되었습니다.');
+        navigate('/');
       }
     } catch (error) {
       alert(error);
@@ -110,6 +111,7 @@ const WriteQuotePage = () => {
         />
       </div>
       <Button text="등록하기" handleClick={handleClick} />
+      <div className="w-full h-[80px]"></div>
     </div>
   );
 };

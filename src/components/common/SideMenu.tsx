@@ -26,12 +26,12 @@ const SideMenu = ({ onClickMenu }: SideMenuProps) => {
   }, []);
 
   const onGetUserNickname = async () => {
-    console.log(localStorage.getItem('accessToken'));
     try {
       const response = await instance.get('accounts/profile/', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
+        withCredentials: true,
       });
       if (response.status === 200) {
         setNickname(response.data.nickname);
